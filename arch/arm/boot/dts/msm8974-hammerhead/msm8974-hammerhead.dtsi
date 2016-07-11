@@ -36,6 +36,16 @@
 		status = "ok";
 	};
 
+	qcom,mdss_mdp@fd900000 {
+		qcom,mdss_fb_primary {
+			qcom,memory-reservation-size = <0x1000000>;
+		};
+	};
+
+	qcom,mdss_dsi@fd922800 {
+		qcom,mdss-dsi-use-vdd-supply = <0>;
+	};
+
 	qcom,hdmi_tx@fd922100 {
 		status = "ok";
 	};
@@ -86,7 +96,6 @@
 		qcom,audio-routing =
 			"RX_BIAS", "MCLK",
 			"LDO_H", "MCLK",
-			"AIF4 MAD", "MCLK",
 			"AMIC1", "MIC BIAS1 External",
 			"MIC BIAS1 External", "Handset Mic",
 			"AMIC2", "MIC BIAS2 External",

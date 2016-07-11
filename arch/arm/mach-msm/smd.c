@@ -1279,6 +1279,7 @@ static void smd_state_change(struct smd_channel *ch,
 	case SMD_SS_CLOSED:
 		if (ch->half_ch->get_state(ch->send) == SMD_SS_OPENED) {
 			ch_set_state(ch, SMD_SS_CLOSING);
+			ch->current_packet = 0;
 			ch->pending_pkt_sz = 0;
 			ch->notify(ch->priv, SMD_EVENT_CLOSE);
 		}
@@ -3504,7 +3505,7 @@ static int __devinit parse_smd_devicetree(struct device_node *node,
 	ret = request_irq(irq_line,
 				private_irq->irq_handler,
 				irq_flags,
-				node->name ? node->name : "smd_dev",
+				"smd_dev",
 				NULL);
 	if (ret < 0) {
 		pr_err("%s: request_irq() failed on %d\n", __func__, irq_line);
@@ -3571,7 +3572,7 @@ static int __devinit parse_smsm_devicetree(struct device_node *node,
 	ret = request_irq(irq_line,
 				private_irq->irq_handler,
 				IRQF_TRIGGER_RISING,
-				node->name ? node->name : "smsm_dev",
+				"smsm_dev",
 				NULL);
 	if (ret < 0) {
 		pr_err("%s: request_irq() failed on %d\n", __func__, irq_line);
